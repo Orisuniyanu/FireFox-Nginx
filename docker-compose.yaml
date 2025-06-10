@@ -13,7 +13,7 @@ services:
     build: ./firefox
     container_name: firefox-container
     ports:
-      - "${FIREFOX_PORT}:5400"
+      - "${FIREFOX_PORT}:5800"
     networks:
       - internal
     environment:
