@@ -1,0 +1,25 @@
+services:
+  nginx-container:
+    build: ./nginx
+    container_name: nginx-container
+    ports:
+      - "${NGINX_PORT}:80"
+    networks:
+      - internal
+    volumes:
+      - ./nginx/html:/usr/share/nginx/html:ro
+
+  firefox-container:
+    build: ./firefox
+    container_name: firefox-container
+    ports:
+      - "5400:3000"
+    networks:
+      - internal
+    environment:
+      - DISPLAY=:0
+
+networks:
+  internal:
+    driver: bridge
+
