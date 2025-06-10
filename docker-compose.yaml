@@ -1,6 +1,8 @@
 services:
   nginx-container:
-    build: ./nginx  # Points directly to directory containing Dockerfile
+    build:
+      context: . 
+      dockerfile: ./nginx/Dockerfile
     container_name: nginx-container
     ports:
       - "${NGINX_PORT}:80"
