@@ -1,7 +1,8 @@
 version: '3.8'  
 services:
   nginx-container:
-    build: ./nginx
+    context: .
+    dockerfile: ./nginx/Dockerfile
     container_name: nginx-container
     ports:
       - "${NGINX_PORT}:80"
