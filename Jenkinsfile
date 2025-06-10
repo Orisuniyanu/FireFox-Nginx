@@ -33,10 +33,11 @@ pipeline {
     }
 
     post {
-        always {
-            echo 'Cleaning up...'
-            sh 'docker compose down'
-        }
+    	failure {
+        	echo 'Pipeline failed. Cleaning up...'
+        	sh 'docker compose down'
+    	}
     }
 }
+
 
