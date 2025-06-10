@@ -18,6 +18,8 @@ services:
       - internal
     environment:
       - DISPLAY=:0
+    depends_on:
+      - nginx-container
 
 networks:
   internal:
