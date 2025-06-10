@@ -5,7 +5,7 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    container_name: nginx-container
+    container_name: nginx-container  # Proper string value
     ports:
       - "${NGINX_PORT}:80"
     networks:
@@ -15,25 +15,23 @@ services:
 
   firefox-container:
     image: lscr.io/linuxserver/firefox:latest
-    container_name:
+    container_name: firefox-container  # Proper string value
     ports:
       - "${FIREFOX_PORT}:3000"
     networks:
       - internal
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - firefox-profile:/config:rw  
     environment:
-      - DISPLAY=${DISPLAY:-:0}
-      - FF_OPEN_URL=http://nginx-container
-    restart: unless-stopped  
-    shm_size: "2gb"  
+      PUID: "1000"  # Proper YAML format
+      PGID: "1000"
+      TZ: "Etc/UTC"
+      FF_OPEN_URL: "http://nginx-container"
+    volumes:
+      - ./firefox-config:/config
+    shm_size: "1gb"
+    restart: unless-stopped
     depends_on:
       - nginx-container
 
 networks:
   internal:
     driver: bridge
-
-volumes:
-  firefox-profile:
