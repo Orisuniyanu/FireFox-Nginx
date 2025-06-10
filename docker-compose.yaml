@@ -1,7 +1,6 @@
 services:
   nginx-container:
-    context: .
-    dockerfile: ./nginx/Dockerfile
+    build: ./nginx  # Points directly to directory containing Dockerfile
     container_name: nginx-container
     ports:
       - "${NGINX_PORT}:80"
@@ -18,7 +17,7 @@ services:
     networks:
       - internal
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix 
+      - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
       - DISPLAY=${DISPLAY:-:0}
     depends_on:
