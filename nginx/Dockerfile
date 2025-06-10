@@ -1,3 +1,3 @@
 FROM nginx:latest
-COPY ./html /usr/share/nginx/html
+COPY ./2127_little_fashion /usr/share/nginx/html
 
