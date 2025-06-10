@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        FIREFOX_PORT = "5800"  
+        FIREFOX_PORT = "3000"  
         NGINX_PORT = "8082"
     }
 
