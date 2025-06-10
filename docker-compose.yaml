@@ -1,3 +1,4 @@
+version: '3.8'  
 services:
   nginx-container:
     build: ./nginx
@@ -10,18 +11,19 @@ services:
       - ./nginx/html:/usr/share/nginx/html:ro
 
   firefox-container:
-    build: ./firefox
+    image: jlesage/firefox
     container_name: firefox-container
     ports:
       - "${FIREFOX_PORT}:5800"
     networks:
       - internal
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix 
     environment:
-      - DISPLAY=:0
+      - DISPLAY=${DISPLAY:-:0}
     depends_on:
       - nginx-container
 
 networks:
   internal:
     driver: bridge
-

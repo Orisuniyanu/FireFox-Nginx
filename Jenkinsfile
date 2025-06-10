@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        FIREFOX_PORT = "5800"
+        FIREFOX_PORT = "5800"  
         NGINX_PORT = "8082"
     }
 
@@ -21,23 +21,24 @@ pipeline {
 
         stage('Run Containers') {
             steps {
-                sh 'docker compose up -d'
+                sh "NGINX_PORT=${NGINX_PORT} FIREFOX_PORT=${FIREFOX_PORT} docker compose up -d"
             }
         }
 
         stage('Verify Deployment') {
             steps {
                 sh 'docker ps'
+                
+                sh "curl -v http://localhost:${NGINX_PORT}"
             }
         }
     }
 
     post {
-    	failure {
-        	echo 'Pipeline failed. Cleaning up...'
-        	sh 'docker compose down'
-    	}
+        failure {
+            echo 'Pipeline failed. Cleaning up...'
+            sh 'docker compose down'
+        }
     }
 }
-
 
