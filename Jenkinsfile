@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://your-git-repo-url.com/your-repo.git'
+                git 'https://github.com/Orisuniyanu/FireFox-Nginx.git'
             }
         }
 
