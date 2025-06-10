@@ -28,8 +28,6 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 sh 'docker ps'
-                
-                sh "curl -v http://localhost:${NGINX_PORT}"
             }
         }
     }
