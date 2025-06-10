@@ -1,3 +1,5 @@
+version: '3.8'  # Explicit version recommended
+
 services:
   nginx-container:
     build:
@@ -9,7 +11,7 @@ services:
     networks:
       - internal
     volumes:
-      - ./nginx/html:/usr/share/nginx/html:ro
+      - ./nginx/2127_little_fashion:/usr/share/nginx/html:ro  # Fixed path to match your actual folder
 
   firefox-container:
     image: jlesage/firefox
@@ -20,11 +22,19 @@ services:
       - internal
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - firefox-profile:/config:rw  # Persistent profile storage
     environment:
       - DISPLAY=${DISPLAY:-:0}
+      - FF_OPEN_URL=http://nginx-container  # Auto-open Nginx container
+      - AUTORUN=1  # Auto-start Firefox
+    restart: unless-stopped  # Auto-restart if crashes
+    shm_size: "2gb"  # Needed for Firefox
     depends_on:
       - nginx-container
 
 networks:
   internal:
     driver: bridge
+
+volumes:
+  firefox-profile:  # Declare volume for Firefox profile
