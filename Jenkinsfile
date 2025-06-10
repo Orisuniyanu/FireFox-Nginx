@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         FIREFOX_PORT = "5400"
-        NGINX_PORT = "8080"
+        NGINX_PORT = "8082"
     }
 
     stages {
